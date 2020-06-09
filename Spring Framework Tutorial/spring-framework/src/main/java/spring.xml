@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "- //SPRING/DTD BEAN 2.0//EN" "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
+
+<beans>
+
+<!-- 	<bean id="triangle" name="tri" class="io.inspire.springFramework.Triangle" autowire="byName" /> -->
+	<bean id="triangle" name="tri" class="io.inspire.springFramework.Triangle" autowire="byName">
+		<!-- <constructor-arg type="java.lang.String" value="Equilateral" /> 
+			<constructor-arg type="int" value="29" /> -->
+
+		<property name="points">
+			<list>
+				<ref bean="pointA" />
+				<ref bean="pointB" />
+				<ref bean="pointC" />
+			</list>
+		</property>
+		
+		<property name="pointA" ref="pointA" />
+		<property name="pointB" ref="pointB" />
+		<property name="pointC">
+			<bean class="io.inspire.springFramework.Point">
+				<property name="x" value="-20"></property>
+				<property name="y" value="0"></property>
+			</bean>
+		</property>
+	</bean>
+
+	<bean id="pointA" class="io.inspire.springFramework.Point">
+		<property name="x" value="0"></property>
+		<property name="y" value="0"></property>
+	</bean>
+
+	<bean id="pointB" class="io.inspire.springFramework.Point">
+		<property name="x" value="20"></property>
+		<property name="y" value="0"></property>
+	</bean>
+	
+	<bean id="pointC" class="io.inspire.springFramework.Point">
+		<property name="x" value="-20"></property>
+		<property name="y" value="0"></property>
+	</bean>
+
+	<alias name="triangle" alias="tri"></alias>
+</beans>
