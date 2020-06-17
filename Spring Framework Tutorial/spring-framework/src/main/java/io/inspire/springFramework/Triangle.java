@@ -2,7 +2,14 @@ package io.inspire.springFramework;
 
 import java.util.List;
 
-public class Triangle {
+import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.BeanNameAware;
+import org.springframework.beans.factory.DisposableBean;
+import org.springframework.beans.factory.InitializingBean;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
+
+public class Triangle implements Shape, ApplicationContextAware, BeanNameAware, InitializingBean, DisposableBean {
 
 	public Triangle() {
 	}
@@ -29,12 +36,16 @@ public class Triangle {
 
 	private List<Point> points;
 
+	@SuppressWarnings("unused")
+	private ApplicationContext context = null;
+
 	public void draw() {
-		 System.out.println("PointA=" + getPointA().getX() + ", PointB=" +
-		 getPointB().getX() + " & PointC=" + getPointC().getX());
-//		for (Point p : points) {
-//			System.out.println("Point X=" + p.getX() + " & Y=" + p.getY());
-//		}
+		System.out.println("Drawing Triangle");
+		System.out.println(
+				"PointA=" + getPointA().getX() + ", PointB=" + getPointB().getX() + " & PointC=" + getPointC().getX());
+		// for (Point p : points) {
+		// System.out.println("Point X=" + p.getX() + " & Y=" + p.getY());
+		// }
 	}
 
 	public String getType() {
@@ -75,5 +86,29 @@ public class Triangle {
 
 	public void setPoints(List<Point> points) {
 		this.points = points;
+	}
+
+	public void setApplicationContext(ApplicationContext context) throws BeansException {
+		this.context = context;
+	}
+
+	public void setBeanName(String beanName) {
+		System.out.println("Bean Name is: " + beanName);
+	}
+
+	public void afterPropertiesSet() throws Exception {
+		System.out.println("This is InitiazingBean using super class");
+	}
+
+	public void destroy() throws Exception {
+		System.out.println("Bean is Destroyed using super class");
+	}
+
+	public void myInit() {
+		System.out.println("This is InitiazingBean using default spring.xml");
+	}
+
+	public void cleanUp() {
+		System.out.println("Bean is Destroyed using default spring.xml");
 	}
 }
