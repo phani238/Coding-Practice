@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd"
+	xmlns:context="http://www.springframework.org/schema/context">
+
+<!-- <beans default-init-method="myInit" default-destroy-method="cleanUp"> -->
+	<!--  Autowire and Scope of Bean Initialization -->
+	<!--
+	<bean id="triangle" name="tri" class="io.inspire.springFramework.Triangle" autowire="byName" scope="singleton" />
+	-->
+	
+<!-- 	<bean id="triangle" name="tri" class="io.inspire.springFramework.Triangle" autowire="byName" init-method="myInit" destroy-method="cleanUp"> -->
+	<bean id="triangle" name="tri" class="io.inspire.springFramework.Triangle" autowire="byName">
+		<!--  Contructor Argument Bean Initialization -->
+		<!--
+		<constructor-arg type="java.lang.String" value="Equilateral" /> 
+		<constructor-arg type="int" value="29" /> 
+		-->
+		<!-- List of beans creation -->
+		<property name="points">
+			<list>
+				<ref bean="pointA" />
+				<ref bean="pointB" />
+				<ref bean="pointC" />
+			</list>
+		</property>
+		<property name="pointA" ref="pointA" />
+		<property name="pointB" ref="pointB" />
+		<property name="pointC">
+			<bean class="io.inspire.springFramework.Point">
+				<property name="x" value="-20"></property>
+				<property name="y" value="0"></property>
+			</bean>
+		</property>
+	</bean>
+	<bean id="pointA" class="io.inspire.springFramework.Point">
+		<property name="x" value="${pointA.pintX}"></property>
+		<property name="y" value="${pointA.pintY}"></property>
+	</bean>
+	<bean id="pointB" class="io.inspire.springFramework.Point">
+		<property name="x" value="20"></property>
+		<property name="y" value="0"></property>
+	</bean>
+	<bean id="pointC" class="io.inspire.springFramework.Point">
+		<property name="x" value="-20"></property>
+		<property name="y" value="0"></property>
+	</bean>
+	<alias name="triangle" alias="tri"></alias>
+	<!-- <bean id="centerTest" class="io.inspire.springFramework.Point">
+		<qualifier value="circleRelated" />
+		<property name="x" value="${pointA.pintX}"></property>
+		<property name="y" value="${pointA.pintY}"></property>
+	</bean> -->
+	
+	<!-- <bean class="io.inspire.springFramework.DisplayNameBeanPostProcessor" /> -->
+	<!-- <bean class="io.inspire.springFramework.MyBeanFactoryPP" /> -->
+	
+	<bean class=" org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations" value="pointsConfig.properties"/>
+	</bean>
+	<!-- <bean class="org.springframework.beans.factory.annotation.RequiredAnnotationBeanPostProcessor" /> -->
+	<bean class="org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor" />
+
+	<!--  Inheriting Parent behaviour -->
+	<!-- <bean id="parenttriangle" class="io.inspire.springFramework.Triangle" abstract="true">
+		<property name="pointA" ref="pointA" />
+		<property name="points">
+			<list>
+				<ref bean="pointA" />
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="triangle1" class="io.inspire.springFramework.Triangle" parent="parenttriangle">
+		<property name="pointB" ref="pointB" />
+		<property name="pointC" ref="pointC" />
+		<property name="points">
+			<list merge="true">
+				<ref bean="pointB" />
+			</list>
+		</property>		
+	</bean>
+	
+	<bean id="triangle2" class="io.inspire.springFramework.Triangle" parent="parenttriangle">
+		<property name="pointB" ref="pointB" />
+	</bean> -->
+	
+	<bean id="triangle3" class="io.inspire.springFramework.Triangle">
+		<property name="pointA" ref="pointA" />
+		<property name="pointB" ref="pointB" />
+		<property name="pointC" ref="pointC" />
+	</bean>
+	
+	<bean id="triangle4" class="io.inspire.springFramework.Triangle">
+		<property name="pointA" ref="pointA" />
+		<property name="pointB" ref="pointB" />
+		<property name="pointC" ref="pointC" />
+	</bean>
+	
+	<bean id="triangle5" class="io.inspire.springFramework.Triangle">
+		<property name="pointA" ref="pointA" />
+		<property name="pointB" ref="pointB" />
+		<property name="pointC" ref="pointC" />
+	</bean>
+	
+	<bean id="circle" class="io.inspire.springFramework.Circle">
+		<property name="center" ref="pointA" />
+		
+	</bean>
+
+	<context:component-scan base-package="io.inspire.springFramework"></context:component-scan>	
+	<context:annotation-config/>
+	
+	<!-- Property File Configuration -->
+	<bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
+		<property name="basenames">
+			<list>
+				<value>messages</value>
+			</list>
+		</property>
+	</bean>
+	
+</beans>
