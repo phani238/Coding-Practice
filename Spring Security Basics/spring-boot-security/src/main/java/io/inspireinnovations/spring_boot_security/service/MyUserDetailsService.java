@@ -1,4 +1,4 @@
-package io.inspireinnovations.spring_boot_security;
+package io.inspireinnovations.spring_boot_security.service;
 
 import java.util.Optional;
 
