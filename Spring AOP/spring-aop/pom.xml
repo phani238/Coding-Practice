@@ -7,7 +7,7 @@
 	<groupId>io.inspireinnovations</groupId>
 	<artifactId>spring-aop</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>jar</packaging>
+	<packaging>war</packaging>
 
 
 	<name>spring-aop</name>
@@ -81,4 +81,12 @@
 			<artifactId>aspectjrt</artifactId>
 		</dependency>
 	</dependencies>
+
+	<build>
+		<resources>
+			<resource>
+				<directory>src/main/org.inspire</directory>
+			</resource>
+		</resources>
+	</build>
 </project>
