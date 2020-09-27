@@ -1,0 +1,16 @@
+spring.application.name: spring configuration
+
+app: 
+  name: Spring Configuration
+  description: Welcome to ${app.name}
+
+my: 
+  greeting: Hello World
+  list.values: One,Two,Three
+
+db: 
+  connection: test connection string
+  host: 327.0.0.1
+  port: 2200
+
+management.endpoints.web.exposure.include: "*"
